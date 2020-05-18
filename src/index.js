@@ -5,6 +5,7 @@ const {database} = require('../database/db.js');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session');
 const passport = require('passport');
+const flash = require('connect-flash');
 
 // Busca la variable de entorno, si no la encuentra usa por defecto el puerto 8000
 app.set('port', process.env.port || 3000);
@@ -29,6 +30,10 @@ app.engine('.hbs', exphandle({
 }));
 
 app.set('view engine', '.hbs');
+
+
+// Connect Flash
+app.use(flash());
 
 
 // Passport

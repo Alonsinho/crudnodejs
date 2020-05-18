@@ -29,7 +29,8 @@ router.post('/signup', passport.authenticate('signupLocal', {
 
 // Inicio de sesión de usuario
 router.get('/signin', isLogged, async(req, res) => {
-    res.render(req.app.get('pathAuth')+'/signin');
+    console.log(req.flash('loginMessage')[0]);
+    res.render(req.app.get('pathAuth')+'/signin', { message: req.flash('loginMessage')[0] });
 });
 
 router.post('/signin', passport.authenticate('signinLocal', {
