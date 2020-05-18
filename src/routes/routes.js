@@ -20,10 +20,20 @@ router.get('/', (req, res) => {
 
 // Lista de la tabla de la base de datos
 router.get('/list', isLogged, async(req, res) => {
+    const flashMessage = req.flash();
+    console.log("Buscando mensajes..");
+    console.log(flashMessage);
+
+    if(flashMessage.success != undefined){
+        // Cogemos el pasado por parámetro
+        const myMessage = JSON.parse((flashMessage.success));
+        console.log(myMessage);
+        res.locals.myAlert = myMessage;
+    }
+
     const links = await pool.query(`SELECT * FROM employees`);
 
     links.username = req.session.username;
-
     console.log(links);
     res.render(req.app.get('pathLinks')+'/list', {links});
 });
